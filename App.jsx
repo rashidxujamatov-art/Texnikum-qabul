@@ -291,7 +291,7 @@ const App = () => {
           <div>
             <h4 className="text-xs font-black uppercase tracking-widest text-blue-500 mb-6">Aloqa</h4>
             <p className="text-slate-400">+998 93 347 74 48</p>
-            <p className="text-slate-400">+998 66 221 73 72</p>
+            <p className="text-slate-400">+998 91 526 67 14</p>
           </div>
           <div>
             <h4 className="text-xs font-black uppercase tracking-widest text-blue-500 mb-6">Ish vaqti</h4>
