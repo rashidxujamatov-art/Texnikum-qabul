@@ -1,24 +1,3 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Cpu, 
-  Settings, 
-  PenTool, 
-  Car, 
-  Code, 
-  Zap, 
-  Globe, 
-  Phone, 
-  MapPin, 
-  CheckCircle, 
-  Send,
-  X,
-  ShieldCheck,
-  FileText,
-  Building2,
-  Award
-} from 'lucide-react';
-
 // Telegram Bot Sozlamalari
 const BOT_TOKEN = "8155144504:AAFmXM2svPCQZwF2J2bxW0VtGE1fBqtZFKg";
 const CHAT_ID = "-1003917622237";
@@ -28,51 +7,51 @@ const professions = [
     id: 'machinery',
     title: "Mashinasozlik texnologiyasi",
     desc: "Kelajak sanoatini boshqaring! CNC stanoklarini dasturlash va metallga ishlov berish sirlarini o'rganing.",
-    icon: <Settings className="w-12 h-12 text-blue-500" />,
+    icon: "⚙️",
     color: "from-blue-500 to-cyan-500"
   },
   {
     id: 'welding',
     title: "Payvandlash texnologiyasi",
     desc: "Yuqori texnologiyali payvandlash — bu yuqori daromad, yuqori mas’uliyat va professionallik.",
-    icon: <Zap className="w-12 h-12 text-orange-500" />,
+    icon: "⚡",
     color: "from-orange-500 to-yellow-500"
   },
   {
     id: 'electronics',
     title: "Elektr va Elektronika",
     desc: "Har bir kelajak bitta impulsdan boshlanadi. Elektr va elektronika bu dunyoning tili.",
-    icon: <Cpu className="w-12 h-12 text-purple-500" />,
+    icon: "🔌",
     color: "from-purple-500 to-indigo-500"
   },
   {
     id: 'design',
     title: "Grafik dizayn",
     desc: "G‘oya yetarli emas. Uni ko‘rinadigan va esda qoladigan shaklga aylantirish kerak.",
-    icon: <PenTool className="w-12 h-12 text-pink-500" />,
+    icon: "🎨",
     color: "from-pink-500 to-rose-500"
   },
   {
     id: 'auto',
     title: "Avtomobillarga xizmat ko'rsatish",
     desc: "Zamonaviy avtomobillar sizning qo'lingizda! Eng yangi diagnostika usullarini o'zlashtiring.",
-    icon: <Car className="w-12 h-12 text-green-500" />,
+    icon: "🚗",
     color: "from-green-500 to-emerald-500"
   },
   {
     id: 'it',
     title: "Axborot texnologiyalari",
     desc: "IT bu raqamli dunyoni boshqarish ko‘nikmasi. Dasturlash va xavfsizlik sirlari.",
-    icon: <Code className="w-12 h-12 text-blue-600" />,
+    icon: "💻",
     color: "from-blue-600 to-blue-400"
   }
 ];
 
 const App = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const [selectedProf, setSelectedProf] = useState("");
-  const [status, setStatus] = useState({ type: '', message: '' });
-  const [formData, setFormData] = useState({
+  const [isModalOpen, setIsModalOpen] = React.useState(false);
+  const [selectedProf, setSelectedProf] = React.useState("");
+  const [status, setStatus] = React.useState({ type: '', message: '' });
+  const [formData, setFormData] = React.useState({
     fullname: "", viloyat: "", tuman: "", mfy: "", kocha: "", uy: "", 
     school_info: "", language: "O'zbek tili", foreign_language: "Ingliz tili",
     birthdate: "", passport: "", father_name: "",
@@ -80,9 +59,9 @@ const App = () => {
     extra_info: ""
   });
 
-  const [jsPDFLoaded, setJsPDFLoaded] = useState(false);
+  const [jsPDFLoaded, setJsPDFLoaded] = React.useState(false);
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (window.jspdf) {
       setJsPDFLoaded(true);
       return;
@@ -118,28 +97,22 @@ const App = () => {
     const today = new Date();
     const formattedDate = `${today.getDate()}.${today.getMonth() + 1}.${today.getFullYear()}`;
 
-    // Header Right
     doc.setFontSize(10);
     doc.text("Samarqand shahar 4-son texnikum", 140, 20);
     doc.text("direktori, professor I. Ergashevga", 140, 25);
-    
     doc.text("Yashovchi:", 140, 32);
     doc.text(`${formData.viloyat} vil., ${formData.tuman} tum.,`, 140, 37);
     doc.text(`${formData.mfy} MFY, ${formData.kocha} k., ${formData.uy}-uy`, 140, 42);
-    
     doc.text("tomonidan", 185, 49);
     doc.text(`${formData.fullname}`, 140, 54);
 
-    // Title
     doc.setFontSize(18);
     doc.text("ARIZA", 105, 75, { align: "center" });
 
-    // Body
     doc.setFontSize(12);
     doc.text(`Meni texnikumning kunduzgi ta'lim shaklining ${selectedProf}`, 20, 90);
     doc.text("mutaxassisligiga o'qishga qabul qilishingizni so'rayman.", 20, 97);
 
-    // Data Table Simulation
     let y = 115;
     const addDataLine = (label, value) => {
       doc.text(`${label}: ${value}`, 20, y);
@@ -163,7 +136,6 @@ const App = () => {
     const extraLines = doc.splitTextToSize(formData.extra_info || "Mavjud emas", 170);
     doc.text(extraLines, 20, y + 8);
 
-    // Footer
     y = 260;
     doc.text(`Sana: ${formattedDate} yil`, 20, y);
     doc.text("Imzo: ________________", 130, y);
@@ -216,14 +188,12 @@ const App = () => {
           <span className="font-black tracking-tighter text-xl">KOICA SAMARKAND</span>
         </div>
         <div className="hidden md:flex gap-10 text-[10px] font-black uppercase tracking-widest text-slate-500">
-          <a href="#loyiha" className="hover:text-blue-500">Loyihalar</a>
           <a href="#kasblar" className="hover:text-blue-500">Yo'nalishlar</a>
           <a href="#aloqa" className="hover:text-blue-500">Bog'lanish</a>
         </div>
       </nav>
 
       <header className="relative z-10 pt-24 pb-32 px-6 max-w-7xl mx-auto text-center">
-        <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }}>
           <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 text-[10px] font-black uppercase tracking-widest mb-10">
             <span className="w-2 h-2 rounded-full bg-blue-500 animate-ping"></span>
             Qabul Mavsumi 2026-2027
@@ -235,16 +205,15 @@ const App = () => {
             Xalqaro ta'lim standartlari va Janubiy Koreya universitetlari bilan hamkorlikda kelajak kasblarini egallang.
           </p>
           <a href="#kasblar" className="inline-flex items-center gap-4 px-14 py-6 bg-blue-600 hover:bg-blue-500 rounded-[2rem] font-black text-xl transition-all shadow-2xl shadow-blue-600/40">
-            O'QISHGA KIRISH <Send className="w-6 h-6" />
+            O'QISHGA KIRISH 🚀
           </a>
-        </motion.div>
       </header>
 
       <section id="kasblar" className="relative z-10 py-24 px-6 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
           {professions.map((prof) => (
-            <motion.div key={prof.id} whileHover={{ scale: 1.02 }} className="bg-white/5 border border-white/5 p-12 rounded-[3rem]">
-              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${prof.color} flex items-center justify-center mb-10`}>
+            <div key={prof.id} className="bg-white/5 border border-white/5 p-12 rounded-[3rem] hover:scale-[1.02] transition-transform">
+              <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${prof.color} flex items-center justify-center mb-10 text-3xl`}>
                 {prof.icon}
               </div>
               <h3 className="text-2xl font-black mb-5">{prof.title}</h3>
@@ -252,10 +221,66 @@ const App = () => {
               <button onClick={() => openModal(prof.title)} className="w-full py-5 bg-white/5 hover:bg-blue-600 rounded-2xl font-black text-[10px] uppercase tracking-widest transition-all">
                 Hozir Ariza Berish
               </button>
-            </motion.div>
+            </div>
           ))}
         </div>
       </section>
+
+      {isModalOpen && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <div className="fixed inset-0 bg-slate-950/98 backdrop-blur-2xl" onClick={closeModal} />
+            <div className="relative z-10 bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[3rem] p-8 md:p-12 overflow-y-auto max-h-[90vh]">
+              <div className="flex justify-between items-center mb-10">
+                <h3 className="text-3xl font-black">Ariza Formasi</h3>
+                <button onClick={closeModal} className="w-12 h-12 bg-white/5 hover:bg-red-500/20 rounded-full flex items-center justify-center font-bold">X</button>
+              </div>
+
+              <form onSubmit={handleSubmit} className="space-y-10">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 text-black">
+                  <div className="space-y-6">
+                    <input required name="fullname" placeholder="F.I.Sh" value={formData.fullname} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-blue-500" />
+                    <div className="grid grid-cols-2 gap-4">
+                      <input required name="viloyat" placeholder="Viloyat" value={formData.viloyat} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                      <input required name="tuman" placeholder="Tuman" value={formData.tuman} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                    </div>
+                    <div className="grid grid-cols-3 gap-4">
+                      <input required name="mfy" placeholder="MFY" value={formData.mfy} onChange={handleChange} className="bg-white border border-white/10 rounded-2xl px-4 py-4 outline-none" />
+                      <input required name="kocha" placeholder="Ko'cha" value={formData.kocha} onChange={handleChange} className="bg-white border border-white/10 rounded-2xl px-4 py-4 outline-none" />
+                      <input required name="uy" placeholder="Uy" value={formData.uy} onChange={handleChange} className="bg-white border border-white/10 rounded-2xl px-4 py-4 outline-none" />
+                    </div>
+                  </div>
+                  <div className="space-y-6">
+                    <input required type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                    <input required name="passport" placeholder="Pasport (AB1234567)" value={formData.passport} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                    <input required name="school_info" placeholder="Maktab va sinf" value={formData.school_info} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-white/5 pt-8 text-black">
+                  <div className="space-y-4">
+                    <input required name="father_name" placeholder="Otasining ismi" value={formData.father_name} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                    <input required name="father_phone" placeholder="Otasining telefoni" value={formData.father_phone} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                  </div>
+                  <div className="space-y-4">
+                    <input required name="mother_name" placeholder="Onasining ismi" value={formData.mother_name} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                    <input required name="mother_phone" placeholder="Onasining telefoni" value={formData.mother_phone} onChange={handleChange} className="w-full bg-white border border-white/10 rounded-2xl px-6 py-4 outline-none" />
+                  </div>
+                </div>
+
+                <div className="pt-6">
+                  {status.message && (
+                    <div className={`mb-6 p-4 rounded-2xl text-sm font-bold ${status.type === 'error' ? 'text-red-500 bg-red-500/10' : 'text-blue-400 bg-blue-500/10'}`}>
+                      {status.message}
+                    </div>
+                  )}
+                  <button type="submit" disabled={status.type === 'loading'} className="w-full py-6 bg-blue-600 hover:bg-blue-500 rounded-[2rem] font-black text-xl disabled:opacity-50 transition-all flex items-center justify-center gap-4">
+                    ARIZANI YUBORISH 📄
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+      )}
 
       <footer id="aloqa" className="bg-black/40 border-t border-white/5 pt-20 pb-10 px-6">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
@@ -273,73 +298,11 @@ const App = () => {
             <p className="text-slate-400">Dush - Juma: 09:00 - 18:00</p>
           </div>
         </div>
-      </footer >
-
-      <AnimatePresence>
-        {isModalOpen && (
-          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="fixed inset-0 bg-slate-950/98 backdrop-blur-2xl" onClick={closeModal} />
-            <motion.div initial={{ scale: 0.9, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} exit={{ scale: 0.9, opacity: 0 }} className="relative z-10 bg-slate-900 border border-white/10 w-full max-w-5xl rounded-[3rem] p-8 md:p-12 overflow-y-auto max-h-[90vh]">
-              <div className="flex justify-between items-center mb-10">
-                <h3 className="text-3xl font-black">Ariza Formasi</h3>
-                <button onClick={closeModal} className="w-12 h-12 bg-white/5 hover:bg-red-500/20 rounded-full flex items-center justify-center"><X /></button>
-              </div>
-
-              <form onSubmit={handleSubmit} className="space-y-10">
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                  <div className="space-y-6">
-                    <input required name="fullname" placeholder="F.I.Sh" value={formData.fullname} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none focus:border-blue-500" />
-                    <div className="grid grid-cols-2 gap-4">
-                      <input required name="viloyat" placeholder="Viloyat" value={formData.viloyat} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                      <input required name="tuman" placeholder="Tuman" value={formData.tuman} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                    </div>
-                    <div className="grid grid-cols-3 gap-4">
-                      <input required name="mfy" placeholder="MFY" value={formData.mfy} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 outline-none" />
-                      <input required name="kocha" placeholder="Ko'cha" value={formData.kocha} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 outline-none" />
-                      <input required name="uy" placeholder="Uy" value={formData.uy} onChange={handleChange} className="bg-white/5 border border-white/10 rounded-2xl px-4 py-4 outline-none" />
-                    </div>
-                  </div>
-                  <div className="space-y-6">
-                    <input required type="date" name="birthdate" value={formData.birthdate} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                    <input required name="passport" placeholder="Pasport (AB1234567)" value={formData.passport} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                    <input required name="school_info" placeholder="Maktab va sinf" value={formData.school_info} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                  </div>
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-white/5 pt-8">
-                  <div className="space-y-4">
-                    <input required name="father_name" placeholder="Otasining ismi" value={formData.father_name} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                    <input required name="father_phone" placeholder="Otasining telefoni" value={formData.father_phone} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                  </div>
-                  <div className="space-y-4">
-                    <input required name="mother_name" placeholder="Onasining ismi" value={formData.mother_name} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                    <input required name="mother_phone" placeholder="Onasining telefoni" value={formData.mother_phone} onChange={handleChange} className="w-full bg-white/5 border border-white/10 rounded-2xl px-6 py-4 outline-none" />
-                  </div>
-                </div>
-
-                <div className="pt-6">
-                  {status.message && (
-                    <div className={`mb-6 p-4 rounded-2xl text-sm font-bold ${status.type === 'error' ? 'text-red-500 bg-red-500/10' : 'text-blue-400 bg-blue-500/10'}`}>
-                      {status.message}
-                    </div>
-                  )}
-                  <button type="submit" disabled={status.type === 'loading'} className="w-full py-6 bg-blue-600 hover:bg-blue-500 rounded-[2rem] font-black text-xl disabled:opacity-50 transition-all flex items-center justify-center gap-4">
-                    ARIZANI YUBORISH <FileText />
-                  </button>
-                </div>
-              </form>
-            </motion.div>
-          </div>
-        )}
-      </AnimatePresence>
-
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;700;800&display=swap');
-        html { scroll-behavior: smooth; font-family: 'Plus Jakarta Sans', sans-serif; }
-        ::-webkit-calendar-picker-indicator { filter: invert(1); }
-      `}</style>
+      </footer>
     </div>
   );
 };
 
-export default App;
+// React komponentni DOM ga chiqarish
+const root = ReactDOM.createRoot(document.getElementById('root'));
+root.render(<App />);
